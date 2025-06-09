@@ -1,8 +1,578 @@
-<html>
-  <head>
-    <title>github io test page</title>
-  </head>
-  <body>
-    <h3>github io 테스트 페이지를 구성해보겠습니다.</h3>
-  </body>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>육아짝꿍 - 동네육아 도우미</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #FFD05B;
+            --secondary: #87CEEB;
+            --text-dark: #1a1a1a;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: -4px;
+            right: -4px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: var(--primary);
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--text-dark);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 208, 91, 0.3);
+        }
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #ffb300 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        .hero-visual {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background: var(--white);
+            border-radius: 40px;
+            box-shadow: var(--shadow-lg);
+            padding: 20px;
+            position: relative;
+            border: 10px solid #1a1a1a;
+        }
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-light);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .screen-header {
+            background: var(--primary);
+            padding: 1rem;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+        .screen-content {
+            flex: 1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .feature-card {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .features {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .feature-box {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        .feature-box-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        .feature-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        .feature-box p {
+            color: var(--text-light);
+        }
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #ffb300 100%);
+            text-align: center;
+            color: var(--text-dark);
+        }
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .cta p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .btn-secondary {
+            background: var(--white);
+            color: var(--text-dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: var(--shadow);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        footer {
+            background: #1a1a1a;
+            color: var(--white);
+            padding: 3rem 0 2rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        .footer-section ul {
+            list-style: none;
+        }
+        .footer-section a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+        .mobile-nav {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .mobile-nav {
+                display: block;
+                cursor: pointer;
+            }
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero-visual {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            .phone-mockup {
+                width: 250px;
+                height: 500px;
+            }
+        }
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            cursor: pointer;
+        }
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--text-dark);
+            margin: 5px 0;
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .stat-label {
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#" class="logo">
+                    <div class="logo-icon">✨</div>
+                    육아짝꿍
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#features">주요 기능</a></li>
+                        <li><a href="#map">육아지도</a></li>
+                        <li><a href="#buddy">육아친구</a></li>
+                        <li><a href="#contact">문의하기</a></li>
+                        <li><a href="#" class="btn-primary">앱 다운로드</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-nav">
+                    <div class="menu-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div>
+                    <h1>우리 동네 육아의 모든 것</h1>
+                    <p>육아친구를 만나고, 키즈존을 찾고, 함께 성장하는 육아 커뮤니티</p>
+                    <a href="#" class="btn-primary">지금 시작하기</a>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-number">15,000+</div>
+                            <div class="stat-label">활성 사용자</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3,500+</div>
+                            <div class="stat-label">키즈존 정보</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">만족도</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="screen-header">육아짝꿍</div>
+                            <div class="screen-content">
+                                <div class="feature-card">
+                                    <div class="feature-icon">👥</div>
+                                    <div>
+                                        <strong>육아친구 찾기</strong>
+                                        <p style="font-size: 0.875rem; color: var(--text-light);">250m • 지현맘</p>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <div class="feature-icon">🗺️</div>
+                                    <div>
+                                        <strong>키즈존 지도</strong>
+                                        <p style="font-size: 0.875rem; color: var(--text-light);">주변 시설 찾기</p>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <div class="feature-icon">💬</div>
+                                    <div>
+                                        <strong>실시간 채팅</strong>
+                                        <p style="font-size: 0.875rem; color: var(--text-light);">15명 온라인</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">육아짝꿍의 특별한 기능</h2>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-box-icon">🤝</div>
+                    <h3>육아친구 매칭</h3>
+                    <p>같은 동네, 비슷한 연령대의 아이를 둔 부모님들과 쉽게 연결됩니다. 육아 고민을 나누고 함께 성장해요.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-box-icon">📍</div>
+                    <h3>키즈존 지도</h3>
+                    <p>키즈카페, 키즈프렌들리 식당, 병원, 약국 등 아이와 함께 갈 수 있는 모든 장소를 한눈에 확인하세요.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-box-icon">💬</div>
+                    <h3>실시간 소통</h3>
+                    <p>지역 기반 채팅방에서 실시간으로 정보를 공유하고, 급한 도움이 필요할 때 빠르게 소통할 수 있어요.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-box-icon">🎉</div>
+                    <h3>모임 만들기</h3>
+                    <p>놀이터 모임, 키즈카페 방문, 체험활동 등 다양한 육아 모임을 만들고 참여할 수 있습니다.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-box-icon">⭐</div>
+                    <h3>리뷰 & 평점</h3>
+                    <p>다른 부모님들의 생생한 후기와 평점을 확인하고, 우리 아이에게 맞는 최적의 장소를 선택하세요.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-box-icon">🔔</div>
+                    <h3>맞춤 알림</h3>
+                    <p>관심 지역의 새로운 정보, 모임 소식, 이벤트 등을 실시간으로 받아보고 놓치지 마세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="cta">
+        <div class="container">
+            <h2>지금 바로 육아짝꿍을 시작하세요!</h2>
+            <p>10만 부모님들이 선택한 육아 필수 앱</p>
+            <a href="#" class="btn-secondary">무료로 시작하기</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>육아짝꿍</h4>
+                    <p style="color: #9ca3af; margin-bottom: 1rem;">동네육아를 편리하게 도와주는 육아 커뮤니티 플랫폼</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#">📱 iOS</a>
+                        <a href="#">🤖 Android</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>서비스</h4>
+                    <ul>
+                        <li><a href="#">육아친구 찾기</a></li>
+                        <li><a href="#">키즈존 지도</a></li>
+                        <li><a href="#">실시간 채팅</a></li>
+                        <li><a href="#">육아 정보</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                        <li><a href="#">문의하기</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <ul>
+                        <li style="color: #9ca3af;">📧 contact@yukahyya.com</li>
+                        <li style="color: #9ca3af;">📞 1588-0000</li>
+                        <li style="color: #9ca3af;">📍 경기도 고양시 일산동구</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 육아짝꿍. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-box').forEach(box => {
+            box.style.opacity = '0';
+            box.style.transform = 'translateY(30px)';
+            box.style.transition = 'all 0.6s ease';
+            observer.observe(box);
+        });
+    </script>
+</body>
 </html>
